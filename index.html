@@ -1,1 +1,139 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>click click</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: #111;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.screen {
+  position: absolute;
+  text-align: center;
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.moving {
+  font-size: 50px;
+  position: relative;
+  animation: move 2s infinite alternate ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes move {
+  from { left: -50px; }
+  to { left: 50px; }
+}
+
+.envelope {
+  font-size: 60px;
+  cursor: pointer;
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% {transform: translateX(0);}
+  25% {transform: translateX(-5px);}
+  50% {transform: translateX(5px);}
+  75% {transform: translateX(-5px);}
+  100% {transform: translateX(0);}
+}
+
+.heart {
+  position: absolute;
+  bottom: 0;
+  font-size: 20px;
+  animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+  from {transform: translateY(0);}
+  to {transform: translateY(-100vh);}
+}
+
+img {
+  width: 250px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<div class="screen active" id="s1">
+  <p>Can you use your finger and click?</p>
+  <div class="moving" onclick="next(2)">🦐</div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="s2">
+  <p>oh can you click this now?</p>
+  <div class="moving" onclick="next(3)">🌸</div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen" id="s3">
+  <p>see a star around?</p>
+  <div class="moving" onclick="next(4)">⭐</div>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen" id="s4">
+  <p>there you go</p>
+  <div class="box" onclick="openbox(this)">📦</div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="s5">
+  <h2>Suhani sent you a box</h2>
+  <p>have a nice day thank you</p>
+  <img src="">"11e267f0c9ffc9aac2cdc321b9ada3cf.jpg"
+</div>
+
+<script>
+function next(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
+}
+
+function openbox(el) {
+  el.classList.add("shake");
+
+  // create floating hearts
+  for (let i = 0; i < 20; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "📦";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+  }
+
+  setTimeout(() => {
+    next(5);
+  }, 800);
+}
+</script>
+
+</body>
+</html>
